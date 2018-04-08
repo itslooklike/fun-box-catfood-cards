@@ -37,7 +37,7 @@ const CardWrap = styled.div`
 const App = () => {
   return (
     <Content>
-      <Title>Ты сегодня покормил кота?</Title>
+      <Title>Ты сегодня покормил&nbsp;кота?</Title>
       <CardContainer>
         {cardsMocks.map((item, idx) => {
           return (

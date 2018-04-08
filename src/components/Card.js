@@ -12,12 +12,17 @@ const Inner = styled.div`
   position: relative;
   height: 100%;
   padding: 17px 12px 12px 47px;
+
+  @media (max-width: 360px) {
+    padding-left: 30px;
+  }
 `;
 
 const Uptitle = styled.div`
   margin: 0 0 5px;
   color: #666;
   font-size: 16px;
+  transition: color 0.3s;
 `;
 
 const Title = styled.h2`
@@ -64,6 +69,7 @@ const Weight = styled.div`
 
 // TODO: картинку можно обрезать, ибо часть изображения не используется
 const Wrap = styled.div`
+  position: relative;
   width: 320px;
   height: 480px;
   border: 4px solid ${p => (p.disabled ? '#f2f2f2' : '#1698d9')};
@@ -71,11 +77,15 @@ const Wrap = styled.div`
   background: #fff url(${catImg}) top 230px left -70px / 368px 360px no-repeat;
   transition: border-color 0.3s;
 
-  :hover {
+  @media (max-width: 360px) {
+    width: 290px;
+  }
+
+  :hover:not([disabled]) {
     border-color: #2ea8e6;
   }
 
-  :hover ${AmountRound} {
+  :hover:not([disabled]) ${AmountRound} {
     background-color: #2ea8e6;
   }
 `;
@@ -90,6 +100,33 @@ const Input = styled.input`
   :checked + ${Wrap} ${AmountRound} {
     background-color: #d91667;
   }
+
+  :checked:hover + ${Wrap} {
+    border-color: #e52e7a;
+  }
+
+  :checked:hover + ${Wrap} ${AmountRound} {
+    background-color: #e52e7a;
+  }
+
+  :checked:hover + ${Wrap} ${Uptitle} {
+    color: #e52e7a;
+  }
+
+  :disabled + ${Wrap} ${AmountRound} {
+    background-color: #b3b3b3;
+  }
+`;
+
+const Overlay = styled.div`
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0.75;
+  background-color: #fff;
 `;
 
 const Card = props => {
@@ -99,7 +136,8 @@ const Card = props => {
   return (
     <Label>
       <Input type="checkbox" disabled={disabled} />
-      <Wrap>
+      <Wrap disabled={disabled}>
+        {disabled && <Overlay />}
         <Inner>
           <Uptitle>Сказочное заморское яство</Uptitle>
           <Title>Нямушка</Title>

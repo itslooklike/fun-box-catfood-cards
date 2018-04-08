@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import CardTooltip from './CardTooltip';
+import CardList from './CardList';
 import catImg from '../assets/images/cat.png';
 
 const Content = styled.div`
@@ -37,12 +38,6 @@ const Title = styled.h2`
 const Subtitle = styled.p`
   margin: 0 0 15px;
   font-size: 24px;
-`;
-
-const ListItem = styled.li`
-  color: #666;
-  font-size: 14px;
-  line-height: 16px;
 `;
 
 const AmountRound = styled.div`
@@ -146,11 +141,7 @@ const Card = props => {
             <Uptitle>Сказочное заморское яство</Uptitle>
             <Title>Нямушка</Title>
             <Subtitle>{subtitle}</Subtitle>
-            <ul>
-              {list.map((item, idx) => {
-                return <ListItem key={idx}>{item}</ListItem>;
-              })}
-            </ul>
+            <CardList list={list} />
             <AmountRound>
               <Amount>{amount}</Amount>
               <Weight>кг</Weight>

@@ -25,10 +25,14 @@ const CardTooltip = props => {
         const { type, text } = item;
 
         if (type === 'link') {
-          return <Label htmlFor={inputId}>{text}</Label>;
+          return (
+            <Label key={idx} htmlFor={inputId}>
+              {text}
+            </Label>
+          );
         }
 
-        return <span>{text}</span>;
+        return <span key={idx}>{text}</span>;
       })}
     </Tooltip>
   );

@@ -3,17 +3,9 @@ import styled from 'styled-components';
 import CardTooltip from './CardTooltip';
 import catImg from '../assets/images/cat.png';
 
-const Container = styled.div`
+const Label = styled.label`
+  display: block;
   font-family: 'TrebuchetMS';
-`;
-
-// TODO: картинку можно обрезать, ибо часть изображения не используется
-const Wrap = styled.div`
-  width: 320px;
-  height: 480px;
-  border: 4px solid #1698d9;
-  border-radius: 10px;
-  background: #fff url(${catImg}) top 230px left -70px / 368px 360px no-repeat;
 `;
 
 const Inner = styled.div`
@@ -57,6 +49,7 @@ const AmountRound = styled.div`
   border-radius: 50%;
   color: #fff;
   text-align: center;
+  transition: background-color 0.3s;
 `;
 
 const Amount = styled.div`
@@ -69,10 +62,43 @@ const Weight = styled.div`
   line-height: 1;
 `;
 
+// TODO: картинку можно обрезать, ибо часть изображения не используется
+const Wrap = styled.div`
+  width: 320px;
+  height: 480px;
+  border: 4px solid ${p => (p.disabled ? '#f2f2f2' : '#1698d9')};
+  border-radius: 10px;
+  background: #fff url(${catImg}) top 230px left -70px / 368px 360px no-repeat;
+  transition: border-color 0.3s;
+
+  :hover {
+    border-color: #2ea8e6;
+  }
+
+  :hover ${AmountRound} {
+    background-color: #2ea8e6;
+  }
+`;
+
+const Input = styled.input`
+  display: none;
+
+  :checked + ${Wrap} {
+    border-color: #d91667;
+  }
+
+  :checked + ${Wrap} ${AmountRound} {
+    background-color: #d91667;
+  }
+`;
+
 const Card = props => {
   const { subtitle, list, amount, tooltip, status } = props.data;
+  const disabled = status === 'disabled';
+
   return (
-    <Container>
+    <Label>
+      <Input type="checkbox" disabled={disabled} />
       <Wrap>
         <Inner>
           <Uptitle>Сказочное заморское яство</Uptitle>
@@ -90,7 +116,7 @@ const Card = props => {
         </Inner>
       </Wrap>
       {tooltip && <CardTooltip status={status} list={tooltip} />}
-    </Container>
+    </Label>
   );
 };
 

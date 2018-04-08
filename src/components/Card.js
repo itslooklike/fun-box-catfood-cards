@@ -3,9 +3,12 @@ import styled from 'styled-components';
 import CardTooltip from './CardTooltip';
 import catImg from '../assets/images/cat.png';
 
+const Content = styled.div`
+  font-family: 'TrebuchetMS';
+`;
+
 const Label = styled.label`
   display: block;
-  font-family: 'TrebuchetMS';
 `;
 
 const Inner = styled.div`
@@ -74,7 +77,7 @@ const Wrap = styled.div`
   height: 480px;
   border: 4px solid ${p => (p.disabled ? '#f2f2f2' : '#1698d9')};
   border-radius: 10px;
-  background: #fff url(${catImg}) top 230px left -70px / 368px 360px no-repeat;
+  background: #f2f2f2 url(${catImg}) top 230px left -70px / 368px 360px no-repeat;
   transition: border-color 0.3s;
 
   @media (max-width: 360px) {
@@ -94,23 +97,23 @@ const Input = styled.input`
   display: none;
 
   :checked + ${Wrap} {
-    border-color: #d91667;
+    border-color: ${p => p.theme.colors.pinkDark};
   }
 
   :checked + ${Wrap} ${AmountRound} {
-    background-color: #d91667;
+    background-color: ${p => p.theme.colors.pinkDark};
   }
 
   :checked:hover + ${Wrap} {
-    border-color: #e52e7a;
+    border-color: ${p => p.theme.colors.pink};
   }
 
   :checked:hover + ${Wrap} ${AmountRound} {
-    background-color: #e52e7a;
+    background-color: ${p => p.theme.colors.pink};
   }
 
   :checked:hover + ${Wrap} ${Uptitle} {
-    color: #e52e7a;
+    color: ${p => p.theme.colors.pinkLight};
   }
 
   :disabled + ${Wrap} ${AmountRound} {
@@ -130,31 +133,33 @@ const Overlay = styled.div`
 `;
 
 const Card = props => {
-  const { subtitle, list, amount, tooltip, status } = props.data;
+  const { subtitle, list, amount, tooltip, status, inputId } = props.data;
   const disabled = status === 'disabled';
 
   return (
-    <Label>
-      <Input type="checkbox" disabled={disabled} />
-      <Wrap disabled={disabled}>
-        {disabled && <Overlay />}
-        <Inner>
-          <Uptitle>Сказочное заморское яство</Uptitle>
-          <Title>Нямушка</Title>
-          <Subtitle>{subtitle}</Subtitle>
-          <ul>
-            {list.map((item, idx) => {
-              return <ListItem key={idx}>{item}</ListItem>;
-            })}
-          </ul>
-          <AmountRound>
-            <Amount>{amount}</Amount>
-            <Weight>кг</Weight>
-          </AmountRound>
-        </Inner>
-      </Wrap>
-      {tooltip && <CardTooltip status={status} list={tooltip} />}
-    </Label>
+    <Content>
+      <Label>
+        <Input type="checkbox" disabled={disabled} id={inputId} />
+        <Wrap disabled={disabled}>
+          {disabled && <Overlay />}
+          <Inner>
+            <Uptitle>Сказочное заморское яство</Uptitle>
+            <Title>Нямушка</Title>
+            <Subtitle>{subtitle}</Subtitle>
+            <ul>
+              {list.map((item, idx) => {
+                return <ListItem key={idx}>{item}</ListItem>;
+              })}
+            </ul>
+            <AmountRound>
+              <Amount>{amount}</Amount>
+              <Weight>кг</Weight>
+            </AmountRound>
+          </Inner>
+        </Wrap>
+      </Label>
+      {tooltip && <CardTooltip inputId={inputId} status={status} list={tooltip} />}
+    </Content>
   );
 };
 

@@ -5,9 +5,10 @@ export default [
     amount: '0,5',
     tooltip: [
       { type: 'text', text: 'Чего сидишь? Порадуй котэ, ' },
-      { type: 'link', text: 'купи.', url: '#' },
+      { type: 'link', text: 'купи.' },
     ],
     status: 'available',
+    inputId: 'inputFuaGra',
   },
   {
     subtitle: 'с\u00A0рыбой',
@@ -15,6 +16,7 @@ export default [
     amount: '2',
     tooltip: [{ type: 'text', text: 'Головы щучьи с\u00A0чесноком да\u00A0свежайшая сёмгушка.' }],
     status: 'available',
+    inputId: 'inputFish',
   },
   {
     subtitle: 'с\u00A0курой',
@@ -22,5 +24,6 @@ export default [
     amount: '5',
     tooltip: [{ type: 'text', text: 'Печалька, с\u00A0курой закончился.' }],
     status: 'disabled',
+    inputId: 'inputChiken',
   },
 ];

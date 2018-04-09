@@ -50,7 +50,7 @@ const AmountRound = styled.div`
   width: 80px;
   height: 80px;
   padding-top: 10px;
-  background-color: #1698d9;
+  background-color: ${p => p.theme.colors.blue};
   border-radius: 50%;
   color: #fff;
   text-align: center;
@@ -68,11 +68,13 @@ const Weight = styled.div`
 `;
 
 // TODO: картинку можно обрезать, ибо часть изображения не используется
+// заполифилить клип-паф? https://github.com/AlfonsoFilho/ClipPath
+// худший вариант корнеры сделать картинками
 const Wrap = styled.div`
   position: relative;
   width: 320px;
   height: 480px;
-  border: 4px solid ${p => (p.disabled ? '#f2f2f2' : '#1698d9')};
+  border: 4px solid ${p => (p.disabled ? '#f2f2f2' : p.theme.colors.blue)};
   border-radius: 10px;
   background: #f2f2f2 url(${catImg}) top 200px left -25px / 368px 360px no-repeat;
   transition: border-color 0.3s;
@@ -84,28 +86,30 @@ const Wrap = styled.div`
   }
 
   :hover:not([disabled]) {
-    border-color: #2ea8e6;
+    border-color: ${p => p.theme.colors.blueLight};
   }
 
   :hover:not([disabled]) ${AmountRound} {
-    background-color: #2ea8e6;
+    background-color: ${p => p.theme.colors.blueLight};
   }
 
-  ::after {
-    content: '';
-    position: absolute;
-    top: 15px;
-    left: -12px;
-    width: 65px;
-    height: 5px;
-    background-color: ${p => (p.disabled ? '#f2f2f2' : '#1698d9')};
-    transform: rotate(-45deg);
-    transform-origin: center;
-    transition: background-color 0.3s;
-  }
+  @supports (clip-path: polygon(0 0, 0 0)) {
+    ::after {
+      content: '';
+      position: absolute;
+      top: 38px;
+      left: -4px;
+      width: 60px;
+      height: 5px;
+      background-color: ${p => (p.disabled ? '#f2f2f2' : p.theme.colors.blue)};
+      transform: rotate(-45deg);
+      transform-origin: top left;
+      transition: background-color 0.3s;
+    }
 
-  :hover:not([disabled])::after {
-    background-color: #2ea8e6;
+    :hover:not([disabled])::after {
+      background-color: ${p => p.theme.colors.blueLight};
+    }
   }
 `;
 
@@ -141,7 +145,7 @@ const Input = styled.input`
   }
 
   :disabled + ${Wrap} ${AmountRound} {
-    background-color: #b3b3b3;
+    background-color: ${p => p.theme.colors.gray};
   }
 `;
 

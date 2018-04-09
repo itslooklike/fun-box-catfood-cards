@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import LinkPrimary from './LinkPrimary';
 
 const Tooltip = styled.div`
   margin-top: 15px;
@@ -8,13 +9,7 @@ const Tooltip = styled.div`
   text-align: center;
 `;
 
-// TODO: дашед заменить на градиент, для точного совпадения с макетом
-const Label = styled.label`
-  color: #22a7e9;
-  text-decoration: underline;
-  text-decoration-style: dashed;
-  cursor: pointer;
-`;
+const StyledLinkPrimary = LinkPrimary.withComponent('label');
 
 const CardTooltip = props => {
   const { list, status, inputId } = props;
@@ -26,9 +21,9 @@ const CardTooltip = props => {
 
         if (type === 'link') {
           return (
-            <Label key={idx} htmlFor={inputId}>
+            <StyledLinkPrimary key={idx} htmlFor={inputId}>
               {text}
-            </Label>
+            </StyledLinkPrimary>
           );
         }
 

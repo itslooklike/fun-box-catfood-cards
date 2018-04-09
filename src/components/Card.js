@@ -16,10 +16,6 @@ const Inner = styled.div`
   position: relative;
   height: 100%;
   padding: 17px 12px 12px 44px;
-
-  @media (max-width: 360px) {
-    padding-left: 30px;
-  }
 `;
 
 const Promo = styled.div`
@@ -81,9 +77,9 @@ const Wrap = styled.div`
   clip-path: polygon(0% 43px, 43px 0%, 100% 0%, 100% 20px, 100% 100%, 100% 100%, 0 100%, 0% 0%);
   ${p => p.disabled && 'cursor: not-allowed'};
 
-  @media (max-width: 360px) {
+  ${p => p.theme.media.maxSmall`
     width: 290px;
-  }
+  `};
 
   :hover:not([disabled]) {
     border-color: ${p => p.theme.colors.blueLight};

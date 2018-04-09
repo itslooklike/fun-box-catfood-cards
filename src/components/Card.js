@@ -76,6 +76,7 @@ const Wrap = styled.div`
   border-radius: 10px;
   background: #f2f2f2 url(${catImg}) top 200px left -25px / 368px 360px no-repeat;
   transition: border-color 0.3s;
+  clip-path: polygon(0% 43px, 43px 0%, 100% 0%, 100% 20px, 100% 100%, 100% 100%, 0 100%, 0% 0%);
   ${p => p.disabled && 'cursor: not-allowed'};
 
   @media (max-width: 360px) {
@@ -89,6 +90,23 @@ const Wrap = styled.div`
   :hover:not([disabled]) ${AmountRound} {
     background-color: #2ea8e6;
   }
+
+  ::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: -12px;
+    width: 65px;
+    height: 5px;
+    background-color: ${p => (p.disabled ? '#f2f2f2' : '#1698d9')};
+    transform: rotate(-45deg);
+    transform-origin: center;
+    transition: background-color 0.3s;
+  }
+
+  :hover:not([disabled])::after {
+    background-color: #2ea8e6;
+  }
 `;
 
 const Input = styled.input`
@@ -98,12 +116,20 @@ const Input = styled.input`
     border-color: ${p => p.theme.colors.pinkDark};
   }
 
+  :checked + ${Wrap}::after {
+    background-color: ${p => p.theme.colors.pinkDark};
+  }
+
   :checked + ${Wrap} ${AmountRound} {
     background-color: ${p => p.theme.colors.pinkDark};
   }
 
   :checked:hover + ${Wrap} {
     ${p => !p.hoverDisabled && `border-color: ${p.theme.colors.pink};`};
+  }
+
+  :checked:hover + ${Wrap}::after {
+    ${p => !p.hoverDisabled && `background-color: ${p.theme.colors.pink};`};
   }
 
   :checked:hover + ${Wrap} ${AmountRound} {

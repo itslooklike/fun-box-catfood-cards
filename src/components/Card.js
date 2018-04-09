@@ -15,7 +15,7 @@ const Label = styled.label`
 const Inner = styled.div`
   position: relative;
   height: 100%;
-  padding: 17px 12px 12px 47px;
+  padding: 17px 12px 12px 44px;
 
   @media (max-width: 360px) {
     padding-left: 30px;
@@ -33,18 +33,20 @@ const Title = styled.h2`
   margin: 0;
   color: #000;
   font-size: 48px;
+  font-weight: bold;
 `;
 
 const Subtitle = styled.p`
   margin: 0 0 15px;
   font-size: 24px;
+  font-weight: bold;
 `;
 
 const AmountRound = styled.div`
   position: absolute;
   z-index: 0;
-  right: 16px;
-  bottom: 16px;
+  right: 12px;
+  bottom: 12px;
   width: 80px;
   height: 80px;
   padding-top: 10px;
@@ -72,8 +74,9 @@ const Wrap = styled.div`
   height: 480px;
   border: 4px solid ${p => (p.disabled ? '#f2f2f2' : '#1698d9')};
   border-radius: 10px;
-  background: #f2f2f2 url(${catImg}) top 230px left -70px / 368px 360px no-repeat;
+  background: #f2f2f2 url(${catImg}) top 200px left -25px / 368px 360px no-repeat;
   transition: border-color 0.3s;
+  ${p => p.disabled && 'cursor: not-allowed'};
 
   @media (max-width: 360px) {
     width: 290px;

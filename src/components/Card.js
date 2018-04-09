@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import CardTooltip from './CardTooltip';
 import CardList from './CardList';
-import catImg from '../assets/images/cat.png';
+
+const imgResolver = rest => require('../assets/images/cat/cat' + rest);
 
 const Content = styled.div`
   font-family: 'Trebuchet MS';
@@ -72,7 +73,11 @@ const Wrap = styled.div`
   height: 480px;
   border: 4px solid ${p => (p.disabled ? '#f2f2f2' : p.theme.colors.blue)};
   border-radius: 10px;
-  background: #f2f2f2 url(${catImg}) top 200px left -25px / 368px 360px no-repeat;
+  ${p => p.theme.retinaImage(imgResolver)};
+  background-color: #f2f2f2;
+  background-position: top 200px left -25px;
+  background-size: 368px 360px;
+  background-repeat: no-repeat;
   transition: border-color 0.3s;
   clip-path: polygon(0% 43px, 43px 0%, 100% 0%, 100% 20px, 100% 100%, 100% 100%, 0 100%, 0% 0%);
   ${p => p.disabled && 'cursor: not-allowed'};

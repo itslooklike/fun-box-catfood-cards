@@ -36,3 +36,31 @@ export const media = {
   small: min(breaks.small),
   maxSmall: max(breaks.small),
 };
+
+const retinaMedia = (scale, url) => {
+  const dpi = 96;
+  const minRes = scale - 0.2;
+
+  if (scale > 1) {
+    return css`
+      @media (-webkit-min-device-pixel-ratio: ${minRes}),
+        (min-resolution: ${minRes * dpi}dpi),
+        (min-resolution: ${minRes}dppx) {
+        background-image: url(${url});
+      }
+    `;
+  }
+
+  return css`
+    background-image: url(${url});
+  `;
+};
+
+export const retinaImage = (resolver, scale = 3, ext = 'png') => {
+  const getRest = scale => (scale > 1 ? '@' + scale + 'x.' + ext : '.' + ext);
+  const src = Array.from({ length: scale }).map((_, id) => resolver(getRest(id + 1)));
+
+  return css`
+    ${src.map((src, id) => retinaMedia(id + 1, src))};
+  `;
+};

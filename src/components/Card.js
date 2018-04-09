@@ -5,7 +5,7 @@ import CardList from './CardList';
 import catImg from '../assets/images/cat.png';
 
 const Content = styled.div`
-  font-family: 'TrebuchetMS';
+  font-family: 'Trebuchet MS';
 `;
 
 const Label = styled.label`

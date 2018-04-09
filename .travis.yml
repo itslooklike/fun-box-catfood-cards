@@ -1,0 +1,21 @@
+language: node_js
+
+node_js:
+  - "9.8"
+
+branches:
+  only:
+  - master
+
+branches:
+  only:
+  - master
+
+script:
+  - npm i now
+  - now -t $NOW_TOKEN
+  - now alias -t $NOW_TOKEN
+  - now rm fun-box-catfood-cards --safe --yes -t $NOW_TOKEN
+
+notifications:
+  email: false

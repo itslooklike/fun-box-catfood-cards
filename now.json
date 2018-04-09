@@ -1,0 +1,6 @@
+{
+  "name": "fun-box-catfood-cards",
+  "alias": "fun-box-catfood-cards.now.sh",
+  "type": "docker",
+  "public": true
+}

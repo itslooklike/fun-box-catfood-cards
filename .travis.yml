@@ -12,10 +12,7 @@ branches:
   - master
 
 script:
-  - npm i now
-  - now -t $NOW_TOKEN
-  - now alias -t $NOW_TOKEN
-  - now rm fun-box-catfood-cards --safe --yes -t $NOW_TOKEN
+  - npm i now && now -t $NOW_TOKEN && now alias -t $NOW_TOKEN && now rm fun-box-catfood-cards --safe --yes -t $NOW_TOKEN
 
 notifications:
   email: false

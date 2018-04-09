@@ -22,7 +22,7 @@ const Inner = styled.div`
   }
 `;
 
-const Uptitle = styled.div`
+const Promo = styled.div`
   margin: 0 0 5px;
   color: #666;
   font-size: 16px;
@@ -100,15 +100,15 @@ const Input = styled.input`
   }
 
   :checked:hover + ${Wrap} {
-    border-color: ${p => p.theme.colors.pink};
+    ${p => !p.hoverDisabled && `border-color: ${p.theme.colors.pink};`};
   }
 
   :checked:hover + ${Wrap} ${AmountRound} {
-    background-color: ${p => p.theme.colors.pink};
+    ${p => !p.hoverDisabled && `background-color: ${p.theme.colors.pink};`};
   }
 
-  :checked:hover + ${Wrap} ${Uptitle} {
-    color: ${p => p.theme.colors.pinkLight};
+  :checked:hover + ${Wrap} ${Promo} {
+    ${p => !p.hoverDisabled && `color: ${p.theme.colors.pinkLight};`};
   }
 
   :disabled + ${Wrap} ${AmountRound} {
@@ -127,31 +127,51 @@ const Overlay = styled.div`
   background-color: #fff;
 `;
 
-const Card = props => {
-  const { subtitle, list, amount, tooltip, status, inputId } = props.data;
-  const disabled = status === 'disabled';
+class Card extends React.Component {
+  state = { hoverDisabled: false };
 
-  return (
-    <Content>
-      <Label>
-        <Input type="checkbox" disabled={disabled} id={inputId} />
-        <Wrap disabled={disabled}>
-          {disabled && <Overlay />}
-          <Inner>
-            <Uptitle>Сказочное заморское яство</Uptitle>
-            <Title>Нямушка</Title>
-            <Subtitle>{subtitle}</Subtitle>
-            <CardList list={list} />
-            <AmountRound>
-              <Amount>{amount}</Amount>
-              <Weight>кг</Weight>
-            </AmountRound>
-          </Inner>
-        </Wrap>
-      </Label>
-      {tooltip && <CardTooltip inputId={inputId} status={status} list={tooltip} />}
-    </Content>
-  );
-};
+  onChange = evt => {
+    const chk = evt.target.checked;
+    if (chk) this.setState({ hoverDisabled: true });
+  };
+
+  onMouseLeave = evt => {
+    if (this.state.hoverDisabled) this.setState({ hoverDisabled: false });
+  };
+
+  render() {
+    const { hoverDisabled } = this.state;
+    const { subtitle, list, amount, tooltip, status, inputId } = this.props.data;
+    const disabled = status === 'disabled';
+
+    return (
+      <Content onMouseLeave={this.onMouseLeave}>
+        <Label>
+          <Input
+            type="checkbox"
+            disabled={disabled}
+            id={inputId}
+            onChange={this.onChange}
+            hoverDisabled={hoverDisabled}
+          />
+          <Wrap disabled={disabled}>
+            {disabled && <Overlay />}
+            <Inner>
+              <Promo>Сказочное заморское яство</Promo>
+              <Title>Нямушка</Title>
+              <Subtitle>{subtitle}</Subtitle>
+              <CardList list={list} />
+              <AmountRound>
+                <Amount>{amount}</Amount>
+                <Weight>кг</Weight>
+              </AmountRound>
+            </Inner>
+          </Wrap>
+        </Label>
+        {tooltip && <CardTooltip inputId={inputId} status={status} list={tooltip} />}
+      </Content>
+    );
+  }
+}
 
 export default Card;
